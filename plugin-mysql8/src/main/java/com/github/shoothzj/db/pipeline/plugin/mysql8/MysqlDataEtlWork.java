@@ -64,14 +64,15 @@ public class MysqlDataEtlWork<PT, D> extends AbstractEtlWork<MysqlInfoDto, D, PT
         long skip = 0;
         while (true) {
             try (Connection connection = dataSource.getConnection()) {
-                final PreparedStatement prepareStatement;
+                final String sql;
                 if (skip == 0) {
                     // first
-                    prepareStatement = connection.prepareStatement(MysqlConcatUtil.firstQuerySql(tableName, primaryKey, 50));
+                    sql = MysqlConcatUtil.firstQuerySql(tableName, primaryKey, 50);
                 } else {
                     // two and there
-                    prepareStatement = connection.prepareStatement(MysqlConcatUtil.subQuerySql(tableName, primaryKey, skip, 50));
+                    sql = MysqlConcatUtil.subQuerySql(tableName, primaryKey, skip, 50);
                 }
+                final PreparedStatement prepareStatement = connection.prepareStatement(sql);
                 List<MapExchange> resultList = new ArrayList<>();
                 final ResultSet resultSet = prepareStatement.executeQuery();
                 int size = 0;

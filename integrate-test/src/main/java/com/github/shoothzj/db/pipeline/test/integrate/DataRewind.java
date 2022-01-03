@@ -20,7 +20,7 @@ public class DataRewind {
      * @param relativePath 相对地址
      */
     public void startRewindTaskWithRelativePath(String relativePath) {
-        final List<RewindTaskDto> rewindTaskDtoList = YamlUtil.relativePathToList(relativePath, new TypeReference<List<RewindTaskDto>>() {
+        final List<RewindTaskDto> rewindTaskDtoList = YamlUtil.relativePathToList(relativePath, new TypeReference<>() {
         });
         for (RewindTaskDto rewindTaskDto : rewindTaskDtoList) {
             try {

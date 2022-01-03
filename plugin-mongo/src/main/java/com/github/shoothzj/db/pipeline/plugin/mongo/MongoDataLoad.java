@@ -36,7 +36,8 @@ public class MongoDataLoad extends AbstractLoad<MongoInfoDto> {
     public void init(MongoInfoDto mongoInfoDto) {
         this.mongoInfoDto = mongoInfoDto;
         final ConnectionString connectionString = new ConnectionString(mongoInfoDto.getConnectionStr());
-        final MongoClientSettings.Builder builder = MongoClientSettings.builder().applyConnectionString(connectionString);
+        final MongoClientSettings.Builder builder = MongoClientSettings.builder()
+                .applyConnectionString(connectionString);
         builder.applyToConnectionPoolSettings(connectionPoolBuilder -> connectionPoolBuilder.maxSize(200));
         final MongoClientSettings mongoClientSettings = builder.build();
         mongoClient = MongoClients.create(mongoClientSettings);

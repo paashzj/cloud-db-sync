@@ -22,7 +22,8 @@ public class DataEtl {
      * @param relativePath 相对地址
      */
     public void startEtlTaskWithRelativePath(String relativePath) {
-        final List<EtlTaskDto> etlTaskDtoList = YamlUtil.relativePathToList(relativePath, new TypeReference<List<EtlTaskDto>>() {
+
+        final List<EtlTaskDto> etlTaskDtoList = YamlUtil.relativePathToList(relativePath, new TypeReference<>() {
         });
         for (EtlTaskDto etlTaskDto : etlTaskDtoList) {
             try {
@@ -67,7 +68,8 @@ public class DataEtl {
         }
         abstractEtlWork.init(extractInfo, abstractLoad, etlTaskDto.getTransform());
         final boolean workResult = abstractEtlWork.work();
-        log.info("rewind task end, work Result is [{}] cost time is [{}]", workResult, System.currentTimeMillis() - startTime);
+        log.info("rewind task end, work Result is [{}] cost time is [{}]",
+                workResult, System.currentTimeMillis() - startTime);
     }
 
 }

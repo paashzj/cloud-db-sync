@@ -45,7 +45,9 @@ public class MongoDataRewind<PT> extends AbstractRewind<MongoInfoDto, PT> {
         this.mongoInfoDto = mongoInfoDto;
         this.transformDto = transformDto;
         final ConnectionString connectionString = new ConnectionString(mongoInfoDto.getConnectionStr());
-        final MongoClientSettings.Builder builder = MongoClientSettings.builder().applyConnectionString(connectionString);
+
+        final MongoClientSettings.Builder builder = MongoClientSettings.builder()
+                .applyConnectionString(connectionString);
         builder.applyToConnectionPoolSettings(connectionPoolBuilder -> connectionPoolBuilder.maxSize(200));
         final MongoClientSettings mongoClientSettings = builder.build();
         mongoClient = MongoClients.create(mongoClientSettings);
